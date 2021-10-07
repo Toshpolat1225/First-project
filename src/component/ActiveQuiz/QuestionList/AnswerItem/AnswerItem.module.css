@@ -1,0 +1,13 @@
+.AnswerItem{
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+.AnswerItem.success{
+    background: rgb(4, 147, 114);
+}
+.AnswerItem.error{
+    background: rgba(206, 42, 42, 0.9);
+}

@@ -1,0 +1,39 @@
+.FinishedQuiz{
+    padding: 20px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 0 10px 0 0;
+}
+.FinishedQuiz ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+.FinishedQuiz ul li i{
+    margin-left: 10px;
+}
+.success{
+    color: rgb(74, 223, 188);
+}
+.error{
+    color: rgb(250, 29, 29);
+}
+.cardFlex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cardFlex p{
+    color: #fff;
+    font-family: 700;
+}
+.icon{
+    width: 10px;
+    height: 10px;
+}
+.btn{
+    background-color: rgba(226, 226, 226, 0.89);
+    border-radius: 5px;
+} 

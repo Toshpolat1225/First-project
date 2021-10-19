@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import classes from "./Drawer.module.css";
-const links = [1, 2, 3, 4, 5];
+import Backdrop from "../../UI/Backdrop/Backdrop"
+const links = [1, 2, 3];
 
 class Drawer extends Component {
   renderLinks() {
@@ -12,7 +13,6 @@ class Drawer extends Component {
       );
     });
   }
-
   render() {
     const addClass = [classes.Drawer];
 
@@ -21,11 +21,13 @@ class Drawer extends Component {
     }
 
     return (
-      <nav className={addClass.join(" ")}>
-        <ul> {this.renderLinks()} </ul>
-      </nav>
+      <React.Fragment>
+        <nav className={addClass.join(" ")}>
+           <ul> {this.renderLinks()} </ul>
+        </nav>
+        {this.props.isOpen ? <Backdrop onClick={this.props.onClose}/> :null}
+      </React.Fragment>
     );
   }
 }
-
 export default Drawer;

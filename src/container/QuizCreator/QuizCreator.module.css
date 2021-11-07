@@ -16,10 +16,7 @@
 }
 .QuizCreator  form{
     border: 2px solid #eee;
-    box-shadow: 2px 2px 25px rgba(0, 0, 0, 0.8);
+    box-shadow: 2px 2px 25px rgba(0, 0, 0, 0.99);
     padding: 25px;
-    border-radius: 20px;
-}
-.QuizCreator input{
-  margin: 0 8%;
+    border-radius: 10px;
 }

@@ -3,7 +3,7 @@ import classes from "./QuizCreator.module.css"
 import Button from "../../component/UI/Button/Button"
 import Input from "../../component/UI/Input/Input"
 import Select from "../../component/UI/Select/Select"
-import {createControl} from "../../form/formFramework"
+import {createControl, validate, validateForm} from "../../form/formFramework"
 import Auxiliary from "../../hoc/Auxiliary/Auxiliary"
 
 function createOptionControl(Variant){
@@ -22,6 +22,7 @@ function createFormControl(){
 export default class QuizCreator extends Component {
   state = {
     quiz: [],
+    isFormValid: false,
     rightAnswerId: 1,
     formControls: createFormControl()
   }
@@ -29,14 +30,24 @@ export default class QuizCreator extends Component {
   submitHandler= event => {
     event.preventDefault();
   }
-  addQuestionHandler = () => {
-
+  addQuestionHandler = event => {
+    event.preventDefault();
   }
   createQuizHandler = () => {
 
   }
   changeHandler = (value, controlName) => {
+    const formControls = {...this.state.formControls}
+    const control = {...formControls[controlName]}
+    control.touched= true
+    control.value = value
+    control.valid = validate(control.value, control.validation)
 
+    formControls[controlName] = control
+    this.setState({
+      formControls,
+      isFormValid:  validateForm(formControls)
+    })
   }
   renderControls(){
       return Object.keys(this.state.formControls).map((controlName, index) => {
@@ -95,8 +106,8 @@ export default class QuizCreator extends Component {
 
 
           {select}
-          <Button type="primary" onClick={this.addQuestionHandler}>Creator question</Button>
-          <Button type="success" onClick={this.createQuizHandler}>Creator quiz</Button>
+          <Button type="primary" onClick={this.addQuestionHandler} disabled={!this.state.isFormValid}>Creator question</Button>
+          <Button type="success" onClick={this.createQuizHandler} disabled={!this.state.quiz.length === 0}>Creator quiz</Button>
         </form>
         </div>
       </div>

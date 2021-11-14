@@ -9,6 +9,7 @@ import {
   validateForm,
 } from "../../form/formFramework";
 import Auxiliary from "../../hoc/Auxiliary/Auxiliary";
+import axios from "axios";
 
 function createOptionControl(Variant) {
   return createControl(
@@ -82,9 +83,24 @@ export default class QuizCreator extends Component {
         formControls: createFormControl(),
     })
   };
-  createQuizHandler = event => {
+  createQuizHandler = async event => {
       event.preventDefault()
-      console.log(this.state.quiz)
+try {
+ await axios.post("https://react-quiz-c90cc-default-rtdb.asia-southeast1.firebasedatabase.app/quizes.json", this.state.quiz)
+  this.setState({
+    quiz: [],
+    isFormValid: false,
+    rightAnswerId: 1,
+    formControls: createFormControl(),
+})
+} catch (error) {
+  console.log(error)
+}
+
+      // axios.post("https://react-quiz-c90cc-default-rtdb.asia-southeast1.firebasedatabase.app/quizes.json", this.state.quiz).then(response =>{
+      //   console.log(response)
+      // })
+      // .catch(error =>console.log(error))
   };
   changeHandler = (value, controlName) => {
     const formControls = { ...this.state.formControls };

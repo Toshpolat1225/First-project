@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classes from "./Quiz.module.css";
 import ActiveQuiz from "../../component/ActiveQuiz/ActiveQuiz";
 import FinishedQuiz from "../../component/FinishedQuiz/FinishedQuiz";
+import axios from "../../axios/axios-quiz";
 
 class Quiz extends Component {
   state = {
@@ -9,41 +10,8 @@ class Quiz extends Component {
     isFinished: false,
     answerState: null,
     activeQuestion: 0,
-    quiz: [
-      {
-        question: "Dasturlash tilini ko'rsating?",
-        questionAnswerId: 2,
-        answers: [
-          { text: "Jquery", id: 1 },
-          { text: "Javascript", id: 2 },
-          { text: "Css", id: 3 },
-          { text: "Html", id: 4 },
-        ],
-        id: 1,
-      },
-      {
-        question: "Html kod to'gri yozgan qatorni ko'rsting?",
-        questionAnswerId: 3,
-        answers: [
-          { text: "<video><source>src='<адрес>'</video>", id: 1 },
-          { text: "<video><source rsc='<адрес>'></video>", id: 2 },
-          { text: "<video><source src='<адрес>'></video>", id: 3 },
-          { text: "<video src='<адрес>'></video>", id: 4 },
-        ],
-        id: 2,
-      },
-      {
-        question: "Javascript frameworkini ko'rsating?",
-        questionAnswerId: 1,
-        answers: [
-          { text: "React", id: 1 },
-          { text: "MongoDB", id: 2 },
-          { text: "Java", id: 3 },
-          { text: "Script", id: 4 },
-        ],
-        id: 3,
-      },
-    ],
+    quiz: [],
+    loading: true
   };
 
   onAnswerClickHandler = (answerId) => {
@@ -98,6 +66,9 @@ class Quiz extends Component {
       }, 2);
     }
   };
+  isQuizFinished() {
+    return this.state.activeQuestion + 1 === this.state.quiz.length
+  }
   retryHandler = () => {
     this.setState({
       activeQuestion: 0,
@@ -106,12 +77,25 @@ class Quiz extends Component {
       results: {},
     });
   };
-
+  async componentDidMount() {
+    try {
+      const response = await axios.get(`/quizes/${this.props.match.params.id}.json`)
+      const quiz = response.data
+      this.setState({
+        quiz,
+        loading: false
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    console.log('Quiz ID = ', this.props.match.params.id)
+  }
   render() {
     return (
       <div className={classes.Quiz}>
         <div className={classes.QuizWrapper}>
           <h2 className={classes.Nav}> Test </h2>
+          console.log("Mana shu yer  5.20")
           {this.state.isFinished ? (
             <FinishedQuiz
               results={this.state.results}

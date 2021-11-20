@@ -98,6 +98,9 @@ class Quiz extends Component {
       }, 2);
     }
   };
+  isQuizFinished() {
+    return this.state.activeQuestion + 1 === this.state.quiz.length
+  }
   retryHandler = () => {
     this.setState({
       activeQuestion: 0,
@@ -106,6 +109,20 @@ class Quiz extends Component {
       results: {},
     });
   };
+
+  async componentDidMount() {
+    try {
+      const response = await axios.get(`/quizes/${this.props.match.params.id}.json`)
+      const quiz = response.data
+
+      this.setState({
+        quiz,
+        loading: false
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   render() {
     return (

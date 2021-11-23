@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import classes from "./Quiz.module.css";
 import ActiveQuiz from "../../component/ActiveQuiz/ActiveQuiz";
 import FinishedQuiz from "../../component/FinishedQuiz/FinishedQuiz";
+import axios from "../../axios/axios-quiz";
+import Loader from "../../component/UI/Loader/Loader";
 
 class Quiz extends Component {
   state = {
@@ -10,40 +12,41 @@ class Quiz extends Component {
     answerState: null,
     activeQuestion: 0,
     quiz: [
-      {
-        question: "Dasturlash tilini ko'rsating?",
-        questionAnswerId: 2,
-        answers: [
-          { text: "Jquery", id: 1 },
-          { text: "Javascript", id: 2 },
-          { text: "Css", id: 3 },
-          { text: "Html", id: 4 },
-        ],
-        id: 1,
-      },
-      {
-        question: "Html kod to'gri yozgan qatorni ko'rsting?",
-        questionAnswerId: 3,
-        answers: [
-          { text: "<video><source>src='<адрес>'</video>", id: 1 },
-          { text: "<video><source rsc='<адрес>'></video>", id: 2 },
-          { text: "<video><source src='<адрес>'></video>", id: 3 },
-          { text: "<video src='<адрес>'></video>", id: 4 },
-        ],
-        id: 2,
-      },
-      {
-        question: "Javascript frameworkini ko'rsating?",
-        questionAnswerId: 1,
-        answers: [
-          { text: "React", id: 1 },
-          { text: "MongoDB", id: 2 },
-          { text: "Java", id: 3 },
-          { text: "Script", id: 4 },
-        ],
-        id: 3,
-      },
+    //   {
+    //     question: "Dasturlash tilini ko'rsating?",
+    //     questionAnswerId: 2,
+    //     answers: [
+    //       { text: "Jquery", id: 1 },
+    //       { text: "Javascript", id: 2 },
+    //       { text: "Css", id: 3 },
+    //       { text: "Html", id: 4 },
+    //     ],
+    //     id: 1,
+    //   },
+    //   {
+    //     question: "Html kod to'gri yozgan qatorni ko'rsting?",
+    //     questionAnswerId: 3,
+    //     answers: [
+    //       { text: "<video><source>src='<адрес>'</video>", id: 1 },
+    //       { text: "<video><source rsc='<адрес>'></video>", id: 2 },
+    //       { text: "<video><source src='<адрес>'></video>", id: 3 },
+    //       { text: "<video src='<адрес>'></video>", id: 4 },
+    //     ],
+    //     id: 2,
+    //   },
+    //   {
+    //     question: "Javascript frameworkini ko'rsating?",
+    //     questionAnswerId: 1,
+    //     answers: [
+    //       { text: "React", id: 1 },
+    //       { text: "MongoDB", id: 2 },
+    //       { text: "Java", id: 3 },
+    //       { text: "Script", id: 4 },
+    //     ],
+    //     id: 3,
+    //   },
     ],
+    loading:true
   };
 
   onAnswerClickHandler = (answerId) => {
@@ -129,22 +132,26 @@ class Quiz extends Component {
       <div className={classes.Quiz}>
         <div className={classes.QuizWrapper}>
           <h2 className={classes.Nav}> Test </h2>
-          {this.state.isFinished ? (
-            <FinishedQuiz
-              results={this.state.results}
-              quiz={this.state.quiz}
-              onRetry={this.retryHandler}
-            />
-          ) : (
-            <ActiveQuiz
-              answers={this.state.quiz[this.state.activeQuestion].answers}
-              question={this.state.quiz[this.state.activeQuestion].question}
-              onClickAnswer={this.onAnswerClickHandler}
-              quizLength={this.state.quiz.length}
-              answerNumber={this.state.activeQuestion + 1}
-              state={this.state.answerState}
-            />
-          )}
+          {
+            this.state.loading
+              ? <Loader/>
+              : this.state.isFinished ? (
+                <FinishedQuiz
+                  results={this.state.results}
+                  quiz={this.state.quiz}
+                  onRetry={this.retryHandler}
+                />
+              ) : (
+                <ActiveQuiz
+                  answers={this.state.quiz[this.state.activeQuestion].answers}
+                  question={this.state.quiz[this.state.activeQuestion].question}
+                  onClickAnswer={this.onAnswerClickHandler}
+                  quizLength={this.state.quiz.length}
+                  answerNumber={this.state.activeQuestion + 1}
+                  state={this.state.answerState}
+                />
+              )
+          }
         </div>
       </div>
     );

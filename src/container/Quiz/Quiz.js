@@ -55,17 +55,6 @@ class Quiz extends Component {
         }, 2);
       }
     } 
-    // else {
-    //   results[question.id] = "error";
-    //   this.setState({
-    //     answerState: {
-    //       [answerId]: "error",
-    //     },
-    //     results,
-    //   });
-    // const timeout = window.setTimeout(() => {
-    //   window.clearTimeout(timeout);
-    // }, 2)};
       else {
         if (!results[question.id]) {
           results[question.id] = "error";
@@ -76,8 +65,6 @@ class Quiz extends Component {
           },
           results,
         });
-
-
         if (this.state.quiz.length === this.state.activeQuestion + 1) {
           const timeout = window.setTimeout(() => {
             this.setState({
@@ -94,8 +81,6 @@ class Quiz extends Component {
             clearTimeout(timeout);
           }, 2);
         }
-
-
     }
   };
   isQuizFinished() {

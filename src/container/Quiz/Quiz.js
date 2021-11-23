@@ -59,8 +59,9 @@ class Quiz extends Component {
 
     const question = this.state.quiz[this.state.activeQuestion];
     const results = this.state.results;
-
-    if (question.questionAnswerId === answerId) {
+    console.log(question.rightAnswerId)
+    console.log(answerId)
+    if (question.rightAnswerId === answerId) {
       if (!results[question.id]) {
         results[question.id] = "success";
       }

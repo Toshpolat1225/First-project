@@ -28,10 +28,10 @@ function createFormControl() {
       { label: "Write question", errorMessage: "Question empty" },
       { required: true }
     ),
-    option1: createOptionControl("A"),
-    option2: createOptionControl("B"),
-    option3: createOptionControl("C"),
-    option4: createOptionControl("D"),
+    option1: createOptionControl(1),
+    option2: createOptionControl(2),
+    option3: createOptionControl(3),
+    option4: createOptionControl(4),
   };
 }
 

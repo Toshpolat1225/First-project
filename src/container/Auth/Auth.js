@@ -37,10 +37,31 @@ export default class Auth extends Component {
       },
     }
   }
-  loginHandler = () =>{
+  loginHandler = async () =>{
+    const authData = {
+      email: this.state.formControls.email.value,
+      password: this.state.formControls.password.value,
+      returnSecureToken: true
+    }
+    try {
+      const response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBvCmBTE7lTk82naQX7S-A2EOMQfLRuFAw", authData)
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
   }
   registerHandler = async () =>{
-    axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBvCmBTE7lTk82naQX7S-A2EOMQfLRuFAw")
+    const authData = {
+      email: this.state.formControls.email.value,
+      password: this.state.formControls.password.value,
+      returnSecureToken: true
+    }
+    try {
+      const response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBvCmBTE7lTk82naQX7S-A2EOMQfLRuFAw", authData)
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
   }
   submitHandler = event =>{
     event.preventDefault();
